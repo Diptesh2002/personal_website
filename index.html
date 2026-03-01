@@ -1,63 +1,39 @@
-<!-- Updated index.html with AdSense error handling -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Website</title>
-    <style>
-        /* Include original styling here */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header, section, footer { padding: 20px; }
-        .ad-container { width: 100%; height: auto; }
-        .adsense-error { color: red; display: none; }
-    </style>
+    <title>My Personal Website</title>
+    <!-- Include other necessary head elements here -->
 </head>
 <body>
-<header>
-    <h1>Welcome to My Personal Website</h1>
-</header>
+    <h1>Welcome to My Personal Website!</h1>
+    <div id="ad-container">
+        <!-- AdSense ads will be inserted here -->
+    </div>
 
-<section id="hero">
-    <!-- Hero section content -->
-</section>
-
-<section id="about">
-    <!-- About section content -->
-</section>
-
-<section id="blog">
-    <!-- Blog section content -->
-</section>
-
-<section id="contact">
-    <!-- Contact section content -->
-</section>
-
-<div class="ad-container">
     <script>
-        function displayAds() {
-            var adError = false;
-            // AdSense script
-            try {
-                // Your AdSense code here 
-                console.log('Ad loaded successfully');
-            } catch (e) {
-                adError = true;
-                console.error('Ad loading failed:', e);
-            }
-            if (adError || (window.innerWidth === 0)) {
-                document.querySelector('.adsense-error').style.display = 'block';
-                document.querySelector('.adsense-error').innerText = 'Ads cannot be displayed at this time.';
+        // Initialize ads
+        window.adsbygoogle = window.adsbygoogle || [];
+
+        function showAds() {
+            var adContainer = document.getElementById('ad-container');
+            var containerWidth = adContainer.offsetWidth;
+            var containerHeight = adContainer.offsetHeight;
+
+            if (containerWidth > 0 && containerHeight > 0) {
+                try {
+                    adsbygoogle.push({ /* Ad configuration */ });
+                } catch (error) {
+                    console.error('AdSense error:', error);
+                }
+            } else {
+                console.error('Ad container dimensions are invalid. Width and height must be greater than zero.');
             }
         }
-        window.onload = displayAds;
-    </script>
-    <div class="adsense-error">Ad cannot be displayed.</div>
-</div>
 
-<footer>
-    <p>&copy; 2026 Diptesh2002. All rights reserved.</p>
-</footer>
+        // Call the function to show ads
+        showAds();
+    </script>
 </body>
 </html>
