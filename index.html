@@ -1313,6 +1313,13 @@
         </div>
     </section>
 
+    <!-- Ad Space After About -->
+    <div style="text-align: center; padding: 3rem 2rem; background: var(--color-dark);">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8122932465552275"
+             crossorigin="anonymous"></script>
+        <!-- Horizontal Ad Unit - Add your ad code here -->
+    </div>
+
     <!-- EXPERTISE CAROUSEL SECTION -->
     <section class="train-carousel-section" id="expertise">
         <div class="section-header fade-in-up">
@@ -1363,6 +1370,13 @@
         </div>
     </section>
 
+    <!-- Ad Space Before Contact -->
+    <div style="text-align: center; padding: 3rem 2rem; background: var(--color-darker);">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8122932465552275"
+             crossorigin="anonymous"></script>
+        <!-- Horizontal Ad Unit - Add your ad code here -->
+    </div>
+
     <!-- CONTACT SECTION -->
     <section id="contact">
         <div class="contact-content fade-in-up">
@@ -1385,6 +1399,15 @@
         <div class="article-modal-content">
             <button class="modal-close" onclick="closeArticle()">&times;</button>
             <div id="articleContent" class="modal-article-content"></div>
+            
+            <!-- Ad Space -->
+            <div style="text-align: center; padding: 2rem 0; border-top: 2px solid var(--color-border); border-bottom: 2px solid var(--color-border); margin: 2rem 0;">
+                <!-- Google AdSense Ad Unit - Add your ad code here -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8122932465552275"
+                     crossorigin="anonymous"></script>
+                <!-- You can add display ad unit here -->
+            </div>
+            
             <div class="comments-section">
                 <h3 class="comments-title">Comments</h3>
                 <div id="commentsContainer" class="comments-container"></div>
@@ -1633,7 +1656,7 @@
                                 </div>
                                 <h4 class="article-title">${article.title}</h4>
                                 <p class="article-excerpt">${article.excerpt}</p>
-                                <a href="#" class="article-link" onclick="event.stopPropagation();">Read More →</a>
+                                <a href="#" class="article-link" onclick="event.preventDefault(); openArticle('${doc.id}');">Read More →</a>
                             </article>
                         `;
 
@@ -1666,6 +1689,10 @@
             const content = document.getElementById('articleContent');
             
             content.innerHTML = `
+                <!-- Google AdSense -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8122932465552275"
+                     crossorigin="anonymous"></script>
+                
                 <h1>${article.title}</h1>
                 <div class="article-meta">
                     <span class="article-date">📅 ${article.date}</span>
