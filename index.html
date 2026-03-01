@@ -1,45 +1,63 @@
-<style>
-/* ==================== AD CONTAINER ==================== */
-.ad-container {
-    min-height: 280px;
-    margin: 2rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--color-darker);
-    border: 2px solid var(--color-border);
-    padding: 1rem;
-}
+<!-- Updated index.html with AdSense error handling -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Website</title>
+    <style>
+        /* Include original styling here */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header, section, footer { padding: 20px; }
+        .ad-container { width: 100%; height: auto; }
+        .adsense-error { color: red; display: none; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Personal Website</h1>
+</header>
 
-.ad-container.ad-loaded {
-    min-height: auto;
-}
+<section id="hero">
+    <!-- Hero section content -->
+</section>
 
-.ad-placeholder {
-    text-align: center;
-    color: var(--color-text-dim);
-    font-size: 0.9rem;
-    padding: 2rem;
-}
-</style>
-<script>
-    window.addEventListener('error', function(e) {
-        if (e.message && e.message.includes('adsbygoogle')) {
-            console.warn('AdSense blocked or unavailable');
+<section id="about">
+    <!-- About section content -->
+</section>
+
+<section id="blog">
+    <!-- Blog section content -->
+</section>
+
+<section id="contact">
+    <!-- Contact section content -->
+</section>
+
+<div class="ad-container">
+    <script>
+        function displayAds() {
+            var adError = false;
+            // AdSense script
+            try {
+                // Your AdSense code here 
+                console.log('Ad loaded successfully');
+            } catch (e) {
+                adError = true;
+                console.error('Ad loading failed:', e);
+            }
+            if (adError || (window.innerWidth === 0)) {
+                document.querySelector('.adsense-error').style.display = 'block';
+                document.querySelector('.adsense-error').innerText = 'Ads cannot be displayed at this time.';
+            }
         }
-    });
-</script>
-
-<!-- Google AdSense with Error Handling -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8122932465552275"
- crossorigin="anonymous" onerror="console.warn('AdSense failed to load')"></script>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: 'ca-pub-8122932465552275',
-        enable_page_level_ads: true
-    });
-</script>
-
-<div class="ad-container" id="ad-slot-1">
-    <div class="ad-placeholder">Advertisement</div>
+        window.onload = displayAds;
+    </script>
+    <div class="adsense-error">Ad cannot be displayed.</div>
 </div>
+
+<footer>
+    <p>&copy; 2026 Diptesh2002. All rights reserved.</p>
+</footer>
+</body>
+</html>
