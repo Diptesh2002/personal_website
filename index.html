@@ -1791,38 +1791,26 @@
         });
 
         // =====================================================
-        // FIX: SAFE ADSENSE INITIALIZATION
-        // Detects if ads are blocked and shows fallback text.
-        // The ERR_BLOCKED_BY_CLIENT error is from user ad blockers
-        // and cannot be fully prevented, but we handle it gracefully.
+        // ADSENSE: Do NOT manually call push({}) here.
+        // The AdSense script (loaded async in <head>) already
+        // auto-initializes every <ins class="adsbygoogle"> on
+        // the page. Calling push() again causes:
+        // "All ins elements already have ads in them" error.
+        //
+        // Instead, we just check after load whether ads rendered,
+        // and show a fallback placeholder if they were blocked.
         // =====================================================
         window.addEventListener('load', function () {
             setTimeout(() => {
-                const adUnits = document.querySelectorAll('.adsbygoogle');
-                let adsLoaded = false;
-
-                adUnits.forEach(function(ad) {
-                    try {
-                        (window.adsbygoogle = window.adsbygoogle || []).push({});
-                        adsLoaded = true;
-                    } catch (e) {
-                        console.log('AdSense init error (likely blocked by client):', e);
+                document.querySelectorAll('.adsbygoogle').forEach(function(ad, i) {
+                    const status = ad.getAttribute('data-adsbygoogle-status');
+                    const hasHeight = ad.offsetHeight > 0;
+                    if (status !== 'done' && !hasHeight) {
+                        const fallback = document.getElementById('adFallback' + (i + 1));
+                        if (fallback) fallback.classList.add('show');
                     }
                 });
-
-                // Check after a short delay if ads actually rendered
-                setTimeout(() => {
-                    adUnits.forEach(function(ad, i) {
-                        const isRendered = ad.getAttribute('data-adsbygoogle-status') === 'done'
-                                       || ad.offsetHeight > 0;
-                        if (!isRendered) {
-                            // Show subtle fallback placeholder instead of empty space
-                            const fallback = document.getElementById('adFallback' + (i + 1));
-                            if (fallback) fallback.classList.add('show');
-                        }
-                    });
-                }, 2000);
-            }, 500);
+            }, 3000); // Wait 3s for AdSense to finish loading
         });
     </script>
 </body>
